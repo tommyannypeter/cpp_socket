@@ -12,6 +12,7 @@ struct Socket_Config {
     char* host = "127.0.0.1";
     uint16_t port;
     int max_connection_num = 1;
+    int buffer_size = 16384;
 };
 
 class Socket_Base {
@@ -26,12 +27,16 @@ private:
     struct sockaddr_in m_address;
     int m_address_size = sizeof(m_address);
     int m_connection;
+    char* m_buffer;
 
 public:
     Socket_Base(Socket_Config config);
     ~Socket_Base();
 
     void wait_for_connection() final;
+    void send_string(std::string str) final;
+    std::string receive_string() final;
+    void close_server() final;
 };
 
 #endif

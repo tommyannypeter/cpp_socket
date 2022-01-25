@@ -9,6 +9,8 @@ Socket_Base::Socket_Base(Socket_Config config) {
     m_address.sin_port = htons(m_config.port);
     bind(m_server_handle, (struct sockaddr *)&m_address, m_address_size);
     listen(m_server_handle, m_config.max_connection_num);
+    m_buffer = new char[m_config.buffer_size];
+    memset(m_buffer, 0, sizeof(m_buffer));
 }
 
 Socket_Base::~Socket_Base() {
@@ -23,4 +25,20 @@ void Socket_Base::wait_for_connection() {
         &m_address_size
         #endif
     );
+}
+
+void Socket_Base::send_string(std::string str) {
+    char* str_c = new char[str.length() + 1];
+    strcpy(str_c, str.c_str());
+    send(m_connection, str_c, str.length(), 0);
+}
+
+std::string Socket_Base::receive_string() {
+    read(m_connection, m_buffer, m_config.max_connection_num);
+    return std::string(m_buffer);
+}
+
+void Socket_base::close_server() {
+    delete[] m_buffer;
+    close(m_server_handle);
 }
