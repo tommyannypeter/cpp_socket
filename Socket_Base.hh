@@ -1,6 +1,7 @@
 #ifndef SOCKET_BASE_HH
 #define SOCKET_BASE_HH
 
+#include <stdint.h>
 #include <string>
 #include <unistd.h>
 #ifdef __linux__
