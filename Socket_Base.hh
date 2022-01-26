@@ -1,6 +1,7 @@
 #ifndef SOCKET_BASE_HH
 #define SOCKET_BASE_HH
 
+#include <string.h>
 #include <stdint.h>
 #include <string>
 #include <unistd.h>
