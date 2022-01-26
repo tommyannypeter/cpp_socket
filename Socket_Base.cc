@@ -5,7 +5,7 @@ Socket_Base::Socket_Base(Socket_Config config) {
     m_server_handle = socket(AF_INET, SOCK_STREAM,0);
     setsockopt(m_server_handle, SOL_SOCKET, SO_REUSEADDR, &m_opt_value, sizeof(m_opt_value));
     m_address.sin_family = AF_INET;
-    m_address.sin_addr.s_addr = inet_addr(m_config.host);
+    m_address.sin_addr.s_addr = inet_addr(m_config.host.c_str());
     m_address.sin_port = htons(m_config.port);
     bind(m_server_handle, (struct sockaddr *)&m_address, m_address_size);
     listen(m_server_handle, m_config.max_connection_num);
@@ -38,7 +38,7 @@ std::string Socket_Base::receive_string() {
     return std::string(m_buffer);
 }
 
-void Socket_base::close_server() {
+void Socket_Base::close_server() {
     delete[] m_buffer;
     close(m_server_handle);
 }

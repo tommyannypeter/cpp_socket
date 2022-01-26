@@ -1,7 +1,8 @@
 #ifndef SOCKET_BASE_HH
 #define SOCKET_BASE_HH
 
-#include <stdint.h>
+#include <string>
+#include <unistd.h>
 #ifdef __linux__
 #include <sys/socket.h>
 #elif _WIN32
@@ -9,7 +10,7 @@
 #endif
 
 struct Socket_Config {
-    char* host = "127.0.0.1";
+    std::string host = "127.0.0.1";
     uint16_t port;
     int max_connection_num = 1;
     int buffer_size = 16384;
@@ -33,10 +34,10 @@ public:
     Socket_Base(Socket_Config config);
     ~Socket_Base();
 
-    void wait_for_connection() final;
-    void send_string(std::string str) final;
-    std::string receive_string() final;
-    void close_server() final;
+    virtual void wait_for_connection() final;
+    virtual void send_string(std::string str) final;
+    virtual std::string receive_string() final;
+    virtual void close_server() final;
 };
 
 #endif
