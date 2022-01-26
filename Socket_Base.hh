@@ -5,6 +5,7 @@
 #include <string>
 #include <unistd.h>
 #ifdef __linux__
+#include <netinet/in.h>
 #include <sys/socket.h>
 #elif _WIN32
 #include <winsock.h>
