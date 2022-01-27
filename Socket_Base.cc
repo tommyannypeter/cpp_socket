@@ -34,7 +34,7 @@ void Socket_Base::send_string(std::string str) {
 }
 
 std::string Socket_Base::receive_string() {
-    read(m_connection, m_buffer, m_config.max_connection_num);
+    read(m_connection, m_buffer, m_config.buffer_size);
     return std::string(m_buffer);
 }
 
