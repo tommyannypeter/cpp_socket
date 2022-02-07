@@ -26,6 +26,7 @@ private:
     int m_address_size = sizeof(m_address);
     int m_connection;
     char* m_buffer;
+    bool m_is_connected = false;
 
 public:
     Socket(SocketConfig config);
@@ -35,6 +36,9 @@ public:
     virtual void send_string(std::string str) final;
     virtual std::string receive_string() final;
     virtual void close_server() final;
+
+private:
+    void assert_connection();
 };
 
 #endif
