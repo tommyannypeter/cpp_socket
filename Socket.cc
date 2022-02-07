@@ -1,6 +1,6 @@
-#include "Socket_Base.hh"
+#include "Socket.hh"
 
-Socket_Base::Socket_Base(Socket_Config config) {
+Socket::Socket(SocketConfig config) {
     m_config = config;
     m_server_handle = socket(AF_INET, SOCK_STREAM,0);
     setsockopt(m_server_handle, SOL_SOCKET, SO_REUSEADDR, &m_opt_value, sizeof(m_opt_value));
@@ -13,10 +13,10 @@ Socket_Base::Socket_Base(Socket_Config config) {
     memset(m_buffer, 0, sizeof(m_buffer));
 }
 
-Socket_Base::~Socket_Base() {
+Socket::~Socket() {
 }
 
-void Socket_Base::wait_for_connection() {
+void Socket::wait_for_connection() {
     m_connection = accept(
         m_server_handle, (struct sockaddr *)&m_address,
         #ifdef __linux__
@@ -27,18 +27,18 @@ void Socket_Base::wait_for_connection() {
     );
 }
 
-void Socket_Base::send_string(std::string str) {
+void Socket::send_string(std::string str) {
     char* str_c = new char[str.length() + 1];
     strcpy(str_c, str.c_str());
     send(m_connection, str_c, str.length(), 0);
 }
 
-std::string Socket_Base::receive_string() {
+std::string Socket::receive_string() {
     read(m_connection, m_buffer, m_config.buffer_size);
     return std::string(m_buffer);
 }
 
-void Socket_Base::close_server() {
+void Socket::close_server() {
     delete[] m_buffer;
     close(m_server_handle);
 }

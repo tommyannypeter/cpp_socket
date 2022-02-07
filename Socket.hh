@@ -13,16 +13,16 @@
 #include <winsock.h>
 #endif
 
-struct Socket_Config {
+struct SocketConfig {
     std::string host = "127.0.0.1";
     uint16_t port;
     int max_connection_num = 1;
     int buffer_size = 16384;
 };
 
-class Socket_Base {
+class Socket {
 private:
-    struct Socket_Config m_config;
+    struct SocketConfig m_config;
     int m_server_handle;
     #ifdef __linux__
     int m_opt_value = 1;
@@ -35,8 +35,8 @@ private:
     char* m_buffer;
 
 public:
-    Socket_Base(Socket_Config config);
-    ~Socket_Base();
+    Socket(SocketConfig config);
+    ~Socket();
 
     virtual void wait_for_connection() final;
     virtual void send_string(std::string str) final;
