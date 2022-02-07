@@ -6,6 +6,7 @@ SlaveSocket::SlaveSocket(SocketConfig config, SocketDelegate delegate) :
 }
 
 SlaveSocket::~SlaveSocket() {
+    close_server();
 }
 
 void SlaveSocket::run() {
