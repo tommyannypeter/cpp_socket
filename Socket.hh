@@ -1,8 +1,7 @@
-#ifndef SOCKET_BASE_HH
-#define SOCKET_BASE_HH
+#ifndef SOCKET_HH
+#define SOCKET_HH
 
 #include <string.h>
-#include <stdint.h>
 #include <string>
 #include <unistd.h>
 #ifdef __linux__
@@ -12,13 +11,7 @@
 #elif _WIN32
 #include <winsock.h>
 #endif
-
-struct SocketConfig {
-    std::string host = "127.0.0.1";
-    uint16_t port;
-    int max_connection_num = 1;
-    int buffer_size = 16384;
-};
+#include "SocketConfig.hh"
 
 class Socket {
 private:
