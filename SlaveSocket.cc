@@ -10,6 +10,7 @@ SlaveSocket::~SlaveSocket() {
 }
 
 void SlaveSocket::run() {
+    wait_for_connection();
     while (true) {
         m_delegate.put_in_string(receive_string());
         m_delegate.callback();
