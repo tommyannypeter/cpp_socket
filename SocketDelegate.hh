@@ -4,7 +4,7 @@
 #include <string>
 
 class SocketDelegate {
-private:
+protected:
     bool m_will_reply = true;
     bool m_is_finished = false;
     std::string m_input_string = "NOT_APPLIED";
