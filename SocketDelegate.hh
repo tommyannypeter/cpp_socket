@@ -18,7 +18,7 @@ public:
     virtual bool is_finished();
 
     virtual void put_in_string(std::string input_string);
-    virtual std::string put_out_string();
+    virtual std::string take_out_string();
 
     virtual void callback();
 };
