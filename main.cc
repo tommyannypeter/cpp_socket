@@ -1,14 +1,22 @@
 #include <iostream>
-#include "Socket_Base.hh"
+#include "SlaveSocket.hh"
+#include "SocketConfig.hh"
+#include "SocketDelegate.hh"
+
+class MyDelegate : public SocketDelegate {
+    void callback() {
+        std::cout << "recv: " << m_input_string << std::endl;
+        if (m_input_string.size() == 0) m_is_finished = true;
+        m_output_string = "Hello";
+    }
+};
 
 int main() {
-    Socket_Config socket_config;
+    SocketConfig socket_config;
     socket_config.port = 13579;
-    Socket_Base socket(socket_config);
-    socket.wait_for_connection();
-    socket.send_string("Hello");
-    std::cout << socket.receive_string() << std::endl;
-    socket.close_server();
+    MyDelegate socket_delegate;
+    SlaveSocket socket(socket_config, socket_delegate);
+    socket.run();
 
     return 0;
 }
