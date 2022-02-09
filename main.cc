@@ -15,7 +15,7 @@ int main() {
     SocketConfig socket_config;
     socket_config.port = 13579;
     MyDelegate socket_delegate;
-    SlaveSocket socket(socket_config, socket_delegate);
+    SlaveSocket socket(socket_config, &socket_delegate);
     socket.run();
 
     return 0;
