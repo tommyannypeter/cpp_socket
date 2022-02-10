@@ -6,10 +6,10 @@
 
 class SlaveSocket : private Socket {
 private:
-    SocketDelegate* m_delegate;
+    SocketDelegate *m_delegate;
 
 public:
-    SlaveSocket(SocketConfig config, SocketDelegate* delegate);
+    SlaveSocket(SocketConfig config, SocketDelegate *delegate);
     ~SlaveSocket();
 
     virtual void run();

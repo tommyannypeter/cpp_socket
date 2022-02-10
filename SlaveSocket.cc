@@ -1,7 +1,7 @@
 #include <string>
 #include "SlaveSocket.hh"
 
-SlaveSocket::SlaveSocket(SocketConfig config, SocketDelegate* delegate) :
+SlaveSocket::SlaveSocket(SocketConfig config, SocketDelegate *delegate) :
     Socket(config), m_delegate(delegate) {
 }
 
