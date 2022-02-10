@@ -39,7 +39,9 @@ void Socket::send_string(std::string str) {
 std::string Socket::receive_string() {
     assert_connection();
     read(m_connection, m_buffer, m_config.buffer_size);
-    return std::string(m_buffer);
+    std::string received_string = std::string(m_buffer);
+    memset(m_buffer, 0, sizeof(m_buffer));
+    return received_string;
 }
 
 void Socket::close_server() {
