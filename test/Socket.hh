@@ -36,9 +36,14 @@ protected:
 
 protected:
     Socket(std::string name, SocketConfig config) {
+        #ifdef _WIN32
+        WSAData wsaData;
+        WORD version = MAKEWORD(2, 2);
+        int iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
+        #endif
         m_name = name;
         m_config = config;
-        m_socket_handle = socket(AF_INET, SOCK_STREAM,0);
+        m_socket_handle = socket(AF_INET, SOCK_STREAM, 0);
         setsockopt(m_socket_handle, SOL_SOCKET, SO_REUSEADDR, &m_opt_value, sizeof(m_opt_value));
         m_address.sin_family = AF_INET;
         m_address.sin_addr.s_addr = inet_addr(m_config.host.c_str());
