@@ -75,10 +75,15 @@ public:
 
     std::string receive_string() {
         assert_connection();
-        read(m_connection, m_buffer, m_config.buffer_size);
+        recv(m_connection, m_buffer, m_config.buffer_size, 0);
         std::string received_string = std::string(m_buffer);
-        if (received_string.size() == 0) print_debug("Lose Connection");
-        else print_debug("Receive String: " + received_string);
+        if (received_string.size() == 0) {
+            m_is_connected = false;
+            print_debug("Lose Connection");
+        }
+        else {
+            print_debug("Receive String: " + received_string);
+        }
         memset(m_buffer, 0, sizeof(m_buffer));
         return received_string;
     }
@@ -95,6 +100,10 @@ public:
 
     void turn_off_debug_mode() {
         m_debug_mode = false;
+    }
+
+    bool is_connected() {
+        return m_is_connected;
     }
 };
 

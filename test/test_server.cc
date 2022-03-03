@@ -10,8 +10,9 @@ int main() {
     server.turn_on_debug_mode();
     server.wait_for_connection();
     while (true) {
-        std::cout << server.receive_string() << std::endl;
-        server.send_string("Here is server.");
+        if (!server.is_connected()) server.wait_for_connection();
+        std::string received_str = server.receive_string();
+        if (received_str.size() != 0) server.send_string("Here is server.");
     }
     server.close_socket();
 
