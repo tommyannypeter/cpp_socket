@@ -11,9 +11,11 @@ protected:
     std::string m_output_string = "NOT_APPLIED";
 
 public:
-    TransactorDelegate() {}
+    TransactorDelegate() {
+    }
 
-    ~TransactorDelegate() {}
+    ~TransactorDelegate() {
+    }
 
     virtual bool will_reply() {
         return m_will_reply;

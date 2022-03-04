@@ -13,12 +13,13 @@
 #include <winsock2.h>
 #endif
 #include "SocketConfig.hh"
+#include "Logger.hh"
 
 class Socket {
 private:
     std::string m_name;
     struct SocketConfig m_config;
-    bool m_debug_mode = false;
+    Logger &m_logger = Logger::get_logger();
     char* m_buffer;
 
 protected:
@@ -51,14 +52,15 @@ protected:
         memset(m_buffer, 0, sizeof(m_buffer));
     }
 
-    ~Socket() {}
+    ~Socket() {
+    }
 
     void assert_connection() {
         assert(m_is_connected == true);
     }
 
     void print_debug(std::string message) {
-        if (m_debug_mode) std::cout << "==" << m_name << "== " << message << std::endl;
+        m_logger.log(m_name, message);
     }
 
 public:
@@ -94,11 +96,11 @@ public:
     }
 
     void turn_on_debug_mode() {
-        m_debug_mode = true;
+        m_logger.do_print();
     }
 
     void turn_off_debug_mode() {
-        m_debug_mode = false;
+        m_logger.do_not_print();
     }
 
     bool is_connected() {
