@@ -1,7 +1,6 @@
 #ifndef SOCKET_HH
 #define SOCKET_HH
 
-// #include <string.h>
 #include <iostream>
 #include <string>
 #include <unistd.h>
@@ -71,6 +70,7 @@ public:
         strcpy(str_c, str.c_str());
         print_debug("Send String: " + str);
         send(m_connection, str_c, str.length(), 0);
+        delete str_c;
     }
 
     std::string receive_string() {
@@ -89,7 +89,6 @@ public:
     }
 
     void close_socket() {
-        assert_connection();
         delete[] m_buffer;
         close(m_socket_handle);
     }
