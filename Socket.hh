@@ -71,7 +71,7 @@ public:
         char* str_c = new char[str.length() + 1];
         strcpy(str_c, str.c_str());
         print_debug("Send String: " + str);
-        send(m_connection, str_c, str.length(), 0);
+        send(m_connection, str_c, str.length() + 1, 0);
         delete str_c;
     }
 
