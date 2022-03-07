@@ -1,8 +1,8 @@
 #ifndef SOCKET_HH
 #define SOCKET_HH
 
-#include <iostream>
 #include <string>
+#include <string.h>
 #include <unistd.h>
 #include "assert.h"
 #ifdef __linux__
