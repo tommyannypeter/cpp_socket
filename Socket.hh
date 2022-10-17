@@ -81,6 +81,7 @@ public:
         std::string received_string = std::string(m_buffer);
         if (received_string.size() == 0) {
             m_is_connected = false;
+            close(m_connection);
             print_debug("Lose Connection");
         }
         else {
